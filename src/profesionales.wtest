@@ -1,0 +1,23 @@
+import profesionales.*
+test "testX" {
+
+	var sanMartin=new Universidad(provincia="Buenos Aires",honorariosRecomendados=3500)
+	var rosario=new Universidad(provincia="Santa Fe",honorariosRecomendados=2800)
+	var corrientes=new Universidad(provincia="Corrientes",honorariosRecomendados=4200)
+	var hurlingham=new Universidad(provincia="Buenos Aires",honorariosRecomendados=8800)
+	
+	
+	var juana=new ProfesionalVinculado(universidad=rosario)
+	var melina=new ProfesionalAsociado(universidad=corrientes)
+	var rocio=new ProfesionalLibre(universidad=hurlingham,honorariosPorHora=5000,provinciasDondePuedeTrabajar=#{"Santa Fe","Cordoba","Buenos Aires"})
+	var luciana=new ProfesionalLibre(universidad=rosario,honorariosPorHora=3200,provinciasDondePuedeTrabajar=#{"Santa Fe","Entre Rios"})
+	
+	var elgrancanion=new EmpresaDeServicios(profesionalesContratados=[juana,luciana,rocio,melina],honorariosDeReferencia=3500)
+	
+	
+	assert.equals([rocio],elgrancanion.profesionalesCaros())
+	assert.equals(#{rosario,corrientes,hurlingham},elgrancanion.universidadesFormadoras())
+	assert.equals([juana],elgrancanion.profesionalMasBarato())
+	assert.equals(true,elgrancanion.esDeGenteAcotada())
+	luciana.provinciasDondePuedeTrabajar().addAll(["Corrientes","Misiones"])
+}
